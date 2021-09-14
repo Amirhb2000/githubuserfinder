@@ -33,6 +33,32 @@ class UI {
     <div id="repos"></div>
     `;
   }
+
+  // Show Repos
+  showRepos(repos) {
+    let output = "";
+    repos.forEach(function (repo) {
+      output += `
+      <div class="card card-body mb-2">
+        <div class="row">
+        <div class="col-md-6">
+        <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+        </div>
+        <div class="col-md-6">
+         <span class="badge badge-primary">Stars: ${repo.stargazers_count}</span>
+          <span class="badge badge-secondary">Watchers: ${repo.watchers_count}</span>
+          <span class="badge badge-success">Forks: ${repo.forks_count}</span>
+        </div>
+
+        </div>
+      
+      </div>
+      `;
+    });
+
+    // Output Repos
+    document.getElementById("repos").innerHTML = output;
+  }
   // Ahow Alert
   showAlert(message, className) {
     // Clear any remaining alerts
@@ -49,12 +75,18 @@ class UI {
     const search = document.querySelector(".search");
     // Insert alert
     container.insertBefore(div, search);
+
+    // Timeout after 3 sec
+    setTimeout(() => {
+      this.clearAlert();
+    }, 3000);
   }
   // Clear alert message
   clearAlert() {
-    const curretnAlert = document.querySelector(".alert");
-    if (curretnAlert) {
-      curretnAlert.remove();
+    const currentAlert = document.querySelector(".alert");
+
+    if (currentAlert) {
+      currentAlert.remove();
     }
   }
 
